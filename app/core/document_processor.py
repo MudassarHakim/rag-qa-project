@@ -2,7 +2,7 @@
 
 import tempfile
 from pathlib import Path
-from typing import BinaryIO
+from typing import BinaryIO, Optional, Union
 
 from langchain_community.document_loaders import (
     CSVLoader,
@@ -25,8 +25,8 @@ class DocumentProcessor:
 
     def __init__(
         self,
-        chunk_size: int | None = None,
-        chunk_overlap: int | None = None,
+        chunk_size: Optional[int] = None,
+        chunk_overlap: Optional[int] = None,
     ):
         """Initialize document processor.
 
@@ -50,7 +50,7 @@ class DocumentProcessor:
             f"chunk_overlap={self.chunk_overlap}"
         )
 
-    def load_pdf(self, file_path: str | Path) -> list[Document]:
+    def load_pdf(self, file_path: Union[str, Path]) -> list[Document]:
         """Load a PDF file.
 
         Args:
@@ -68,7 +68,7 @@ class DocumentProcessor:
         logger.info(f"Loaded {len(documents)} pages from {file_path.name}")
         return documents
 
-    def load_text(self, file_path: str | Path) -> list[Document]:
+    def load_text(self, file_path: Union[str, Path]) -> list[Document]:
         """Load a text file.
 
         Args:
@@ -86,7 +86,7 @@ class DocumentProcessor:
         logger.info(f"Loaded text file: {file_path.name}")
         return documents
 
-    def load_csv(self, file_path: str | Path) -> list[Document]:
+    def load_csv(self, file_path: Union[str, Path]) -> list[Document]:
         """Load a CSV file.
 
         Args:
@@ -104,7 +104,7 @@ class DocumentProcessor:
         logger.info(f"Loaded {len(documents)} rows from {file_path.name}")
         return documents
 
-    def load_file(self, file_path: str | Path) -> list[Document]:
+    def load_file(self, file_path: Union[str, Path]) -> list[Document]:
         """Load a file based on its extension.
 
         Args:
@@ -191,7 +191,7 @@ class DocumentProcessor:
         logger.info(f"Created {len(chunks)} chunks")
         return chunks
 
-    def process_file(self, file_path: str | Path) -> list[Document]:
+    def process_file(self, file_path: Union[str, Path]) -> list[Document]:
         """Load and split a file in one step.
 
         Args:

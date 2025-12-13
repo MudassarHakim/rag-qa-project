@@ -3,6 +3,7 @@
 from functools import lru_cache
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from typing import Optional
 
 
 class Settings(BaseSettings):
@@ -44,9 +45,9 @@ class Settings(BaseSettings):
     enable_ragas_evaluation: bool = True
     ragas_timeout_seconds: float = 30.0
     ragas_log_results: bool = True
-    ragas_llm_model: str | None = None  # Defaults to llm_model if not set
-    ragas_llm_temperature: float | None = None  # Defaults to llm_temperature if not set
-    ragas_embedding_model: str | None = None  # Defaults to embedding_model if not set
+    ragas_llm_model: Optional[str] = None  # Defaults to llm_model if not set
+    ragas_llm_temperature: Optional[float] = None  # Defaults to llm_temperature if not set
+    ragas_embedding_model: Optional[str] = None  # Defaults to embedding_model if not set
 
     # API Settings
     api_host: str = "0.0.0.0"

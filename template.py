@@ -404,7 +404,7 @@ class SourceDocument(BaseModel):
 class QueryResponse(BaseModel):
     question: str
     answer: str
-    sources: list[SourceDocument] | None = None
+    sources: Optional[list[SourceDocument]] = None
     processing_time_ms: float
 ''',
 
@@ -640,7 +640,7 @@ def get_qdrant_client() -> QdrantClient:
 class VectorStoreService:
     """Service for managing vector store operations."""
 
-    def __init__(self, collection_name: str | None = None):
+    def __init__(self, collection_name: Optional[str] = None):
         self.collection_name = collection_name or settings.collection_name
         self.client = get_qdrant_client()
         self.embeddings = get_embeddings()
@@ -715,7 +715,7 @@ def format_docs(docs: list[Document]) -> str:
 class RAGChain:
     """RAG chain for question answering."""
 
-    def __init__(self, vector_store_service: VectorStoreService | None = None):
+    def __init__(self, vector_store_service: Optional[VectorStoreService] = None):
         self.vector_store = vector_store_service or VectorStoreService()
         self.retriever = self.vector_store.get_retriever()
         self.llm = ChatOpenAI(

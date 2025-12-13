@@ -1,7 +1,7 @@
 """Vector store module for Qdrant operations."""
 
 from functools import lru_cache
-from typing import Any
+from typing import Any, Optional
 from uuid import uuid4
 
 from langchain_core.documents import Document
@@ -42,7 +42,7 @@ def get_qdrant_client() -> QdrantClient:
 class VectorStoreService:
     """Service for managing vector store operations."""
 
-    def __init__(self, collection_name: str | None = None):
+    def __init__(self, collection_name: Optional[str] = None):
         """Initialize vector store service.
 
         Args:
@@ -110,7 +110,7 @@ class VectorStoreService:
     def search(
         self,
         query: str,
-        k: int | None = None,
+        k: Optional[int] = None,
     ) -> list[Document]:
         """Search for similar documents.
 
@@ -132,7 +132,7 @@ class VectorStoreService:
     def search_with_scores(
         self,
         query: str,
-        k: int | None = None,
+        k: Optional[int] = None,
     ) -> list[tuple[Document, float]]:
         """Search for similar documents with relevance scores.
 
@@ -151,7 +151,7 @@ class VectorStoreService:
         logger.debug(f"Found {len(results)} results with scores")
         return results
 
-    def get_retriever(self, k: int | None = None) -> Any:
+    def get_retriever(self, k: Optional[int] = None) -> Any:
         """Get a retriever for the vector store.
 
         Args:

@@ -1,5 +1,7 @@
 """RAG chain module using LangChain LCEL."""
 
+from typing import Optional
+
 from langchain_core.documents import Document
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
@@ -44,7 +46,7 @@ def format_docs(docs: list[Document]) -> str:
 class RAGChain:
     """RAG chain for question answering."""
 
-    def __init__(self, vector_store_service: VectorStoreService | None = None):
+    def __init__(self, vector_store_service: Optional[VectorStoreService] = None):
         """Initialize RAG chain.
 
         Args:

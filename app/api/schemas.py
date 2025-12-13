@@ -1,7 +1,7 @@
 """Pydantic schemas for API request/response models."""
 
 from datetime import datetime
-from typing import Any
+from typing import Any, Optional
 
 from pydantic import BaseModel, Field
 
@@ -101,23 +101,23 @@ class SourceDocument(BaseModel):
 class EvaluationScores(BaseModel):
     """RAGAS evaluation scores."""
 
-    faithfulness: float | None = Field(
+    faithfulness: Optional[float] = Field(
         None,
         description="Faithfulness score (0-1): measures factual consistency with sources",
         ge=0.0,
         le=1.0,
     )
-    answer_relevancy: float | None = Field(
+    answer_relevancy: Optional[float] = Field(
         None,
         description="Answer relevancy score (0-1): measures relevance to question",
         ge=0.0,
         le=1.0,
     )
-    evaluation_time_ms: float | None = Field(
+    evaluation_time_ms: Optional[float] = Field(
         None,
         description="Time taken for evaluation in milliseconds",
     )
-    error: str | None = Field(
+    error: Optional[str] = Field(
         None,
         description="Error message if evaluation failed",
     )
@@ -128,7 +128,7 @@ class QueryResponse(BaseModel):
 
     question: str = Field(..., description="Original question")
     answer: str = Field(..., description="Generated answer")
-    sources: list[SourceDocument] | None = Field(
+    sources: Optional[list[SourceDocument]] = Field(
         None,
         description="Source documents used",
     )
@@ -136,7 +136,7 @@ class QueryResponse(BaseModel):
         ...,
         description="Query processing time in milliseconds",
     )
-    evaluation: EvaluationScores | None = Field(
+    evaluation: Optional[EvaluationScores] = Field(
         None,
         description="RAGAS evaluation scores (if requested)",
     )
@@ -150,7 +150,7 @@ class ErrorResponse(BaseModel):
 
     error: str = Field(..., description="Error type")
     message: str = Field(..., description="Error message")
-    detail: str | None = Field(None, description="Detailed error information")
+    detail: Optional[str] = Field(None, description="Detailed error information")
 
 
 class ValidationErrorResponse(BaseModel):

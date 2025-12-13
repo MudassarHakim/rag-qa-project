@@ -4,7 +4,7 @@
 
 ### Production-Ready Retrieval-Augmented Generation with FastAPI & LangChain
 
-[![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://www.python.org/downloads/)
+[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-00a393.svg)](https://fastapi.tiangolo.com)
 [![LangChain](https://img.shields.io/badge/LangChain-0.3+-1C3C3C.svg)](https://python.langchain.com)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -95,7 +95,7 @@ graph LR
 
 | Component | Technology | Purpose |
 |-----------|------------|---------|
-| 🐍 Language | **Python 3.12** | Modern Python with type hints |
+| 🐍 Language | **Python 3.9+** | Modern Python with type hints |
 | 🚀 API Framework | **FastAPI** | High-performance async API |
 | 🧠 RAG Framework | **LangChain** | LLM orchestration |
 | 🗄️ Vector DB | **Qdrant Cloud** | Semantic search |
@@ -113,7 +113,7 @@ graph LR
 
 ### Prerequisites
 
-- 🐍 Python 3.12+
+- 🐍 Python 3.9+
 - 🔑 OpenAI API key ([Get one](https://platform.openai.com/api-keys))
 - 🗄️ Qdrant Cloud account ([Sign up](https://cloud.qdrant.io))
 
