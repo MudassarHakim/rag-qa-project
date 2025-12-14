@@ -75,20 +75,43 @@ async def aquery(self, question: str) -> str:
 -   **Usage**: Non-blocking calls for high-performance APIs (FastAPI).
 
 ### Query with Evaluation (`aquery_with_evaluation`)
+
+This is the most advanced method, combining generation, retrieval, and quality assessment.
+
 ```python
 async def aquery_with_evaluation(self, question: str) -> dict:
     # 1. Get Answer & Sources
     result = await self.aquery_with_sources(question)
+    answer = result["answer"]
+    sources = result["sources"]
     
     # 2. Lazy Load Evaluator
+    # We delay importing RAGASEvaluator until needed to keep startup fast
+    # and avoid circular imports.
     evaluator = self.evaluator 
     
-    # 3. Run RAGAS Check
-    evaluation = await evaluator.aevaluate(...)
+    # 3. Safe Evaluation
+    # We wrap evaluation in try/catch. If RAGAS fails (timeout/API error),
+    # the user still gets their answer, just without the score.
+    try:
+        evaluation = await evaluator.aevaluate(
+            question=question, 
+            answer=answer, 
+            contexts=[s["content"] for s in sources]
+        )
+    except Exception:
+        evaluation = {"error": "Evaluation failed"}
     
-    return {..., "evaluation": evaluation}
+    return {
+        "answer": answer, 
+        "sources": sources, 
+        "evaluation": evaluation
+    }
 ```
--   **Usage**: For monitoring quality in production. It checks if the answer was faithful to the sources.
+
+-   **Why Async?**: Evaluation involves extra LLM calls (judges), which take time. Doing this asynchronously allows the server to handle other requests concurrently.
+-   **Lazy Loading**: The `RAGASEvaluator` is heavy (loads models). We only initialize it the first time this method is called, speeding up the initial app launch.
+-   **Robustness**: A failure in the *evaluation* step (e.g., rate limits) does NOT block the *answer*. The user always gets the response, with metrics being optional.
 
 ### Streaming (`stream`)
 ```python
