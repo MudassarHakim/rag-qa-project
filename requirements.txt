@@ -30,3 +30,6 @@ langsmith
 httpx
 datasets
 ragas==0.3.7
+
+# Python 3.9 compatibility
+eval_type_backport
