@@ -482,10 +482,11 @@ function initializeHealthCheck() {
     // Initial check
     updateHealthIndicator();
 
-    // Poll every 30 seconds
-    healthCheckInterval = setInterval(() => {
-        updateHealthIndicator();
-    }, 30000);
+    // Initial check
+    updateHealthIndicator();
+
+    // No background polling by default.
+    // Polling is now controlled by the "Auto-Refresh" toggle in the Status tab.
 }
 
 /**
