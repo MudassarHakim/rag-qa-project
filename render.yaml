@@ -13,3 +13,25 @@ services:
         sync: false
       - key: QDRANT_API_KEY
         sync: false
+      - key: COLLECTION_NAME
+        value: rag_documents
+      - key: CHUNK_SIZE
+        value: "1000"
+      - key: CHUNK_OVERLAP
+        value: "200"
+      - key: EMBEDDING_MODEL
+        value: text-embedding-3-small
+      - key: LLM_MODEL
+        value: gpt-4o-mini
+      - key: LLM_TEMPERATURE
+        value: "0"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: LANGSMITH_TRACING
+        value: "true"
+      - key: LANGSMITH_ENDPOINT
+        value: https://eu.api.smith.langchain.com
+      - key: LANGSMITH_API_KEY
+        sync: false
+      - key: LANGSMITH_PROJECT
+        value: rag-qa-production
