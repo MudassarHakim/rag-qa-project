@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +15,7 @@
     <!-- Custom CSS -->
     <link href="/static/css/custom.css" rel="stylesheet">
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -40,7 +42,8 @@
         <!-- Tab Navigation -->
         <ul class="nav nav-tabs" id="mainTabs" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="documents-tab" data-bs-toggle="tab" data-bs-target="#documents" type="button" role="tab">
+                <button class="nav-link active" id="documents-tab" data-bs-toggle="tab" data-bs-target="#documents"
+                    type="button" role="tab">
                     <i class="bi bi-file-earmark-arrow-up me-2"></i>
                     Documents
                 </button>
@@ -52,13 +55,15 @@
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="status-tab" data-bs-toggle="tab" data-bs-target="#status" type="button" role="tab">
+                <button class="nav-link" id="status-tab" data-bs-toggle="tab" data-bs-target="#status" type="button"
+                    role="tab">
                     <i class="bi bi-activity me-2"></i>
                     Status
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab">
+                <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button"
+                    role="tab">
                     <i class="bi bi-info-circle me-2"></i>
                     Collection Info
                 </button>
@@ -79,7 +84,8 @@
                             <h5>Drag & Drop Files Here</h5>
                             <p class="text-muted">or</p>
                             <input type="file" id="fileInput" class="d-none" accept=".pdf,.txt,.csv">
-                            <button type="button" class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                            <button type="button" class="btn btn-primary"
+                                onclick="document.getElementById('fileInput').click()">
                                 Browse Files
                             </button>
                             <p class="text-muted mt-3 mb-0">
@@ -90,7 +96,9 @@
                         <!-- Upload Progress -->
                         <div id="uploadProgress" class="mt-3" style="display: none;">
                             <div class="progress">
-                                <div id="uploadProgressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%">0%</div>
+                                <div id="uploadProgressBar"
+                                    class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                    style="width: 0%">0%</div>
                             </div>
                         </div>
 
@@ -124,15 +132,16 @@
                                     <div class="mb-3">
                                         <label for="questionInput" class="form-label fw-semibold">Your Question</label>
                                         <textarea class="form-control" id="questionInput" rows="3"
-                                                  placeholder="Ask a question about your documents..."
-                                                  maxlength="1000" required></textarea>
+                                            placeholder="Ask a question about your documents..." maxlength="1000"
+                                            required></textarea>
                                         <div id="charCounter" class="char-counter">0 / 1000</div>
                                     </div>
 
                                     <!-- Options -->
                                     <div class="query-options">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="includeSourcesCheck" checked>
+                                            <input class="form-check-input" type="checkbox" id="includeSourcesCheck"
+                                                checked>
                                             <label class="form-check-label" for="includeSourcesCheck">
                                                 Include sources
                                             </label>
@@ -160,7 +169,15 @@
                             </div>
                         </div>
 
-                        <!-- Results Area -->
+
+                        <!-- Results Area with Clear Button -->
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="mb-0">Response</h5>
+                            <button id="clearChatBtn" class="btn btn-sm btn-outline-secondary"
+                                onclick="document.getElementById('resultsArea').innerHTML = ''">
+                                <i class="bi bi-eraser me-1"></i> Clear History
+                            </button>
+                        </div>
                         <div id="resultsArea"></div>
                     </div>
                 </div>
@@ -172,10 +189,16 @@
                     <div class="col-lg-8 mx-auto">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h4 class="mb-0">System Status</h4>
-                            <button type="button" id="refreshStatusBtn" class="btn btn-outline-primary">
-                                <i class="bi bi-arrow-clockwise me-2"></i>
-                                Refresh
-                            </button>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="autoRefreshSwitch">
+                                    <label class="form-check-label" for="autoRefreshSwitch">Auto-refresh (10s)</label>
+                                </div>
+                                <button type="button" id="refreshStatusBtn" class="btn btn-outline-primary">
+                                    <i class="bi bi-arrow-clockwise me-2"></i>
+                                    Refresh
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Health Status Card -->
@@ -244,5 +267,24 @@
     <script src="/static/js/api.js"></script>
     <script src="/static/js/components.js"></script>
     <script src="/static/js/app.js"></script>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-light border-top">
+        <div class="container text-center">
+            <span class="text-muted">
+                Developed by <strong>Mudassar Hakim</strong> | Industry Standard RAG System
+            </span>
+        </div>
+    </footer>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-light border-top">
+        <div class="container text-center">
+            <span class="text-muted">
+                Developed by <strong>Mudassar Hakim</strong> | Industry Standard RAG System
+            </span>
+        </div>
+    </footer>
 </body>
+
 </html>

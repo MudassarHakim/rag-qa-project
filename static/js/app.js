@@ -9,7 +9,7 @@ let apiClient;
 let healthCheckInterval;
 
 // Initialize app when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize API client
     apiClient = new APIClient();
 
@@ -341,8 +341,28 @@ async function handleStreamingQuery(question) {
  */
 function initializeStatusTab() {
     const refreshBtn = document.getElementById('refreshStatusBtn');
+    const autoRefreshSwitch = document.getElementById('autoRefreshSwitch');
+    let statusInterval;
+
     refreshBtn.addEventListener('click', () => {
         refreshStatusInfo();
+    });
+
+    // Auto-refresh logic
+    autoRefreshSwitch.addEventListener('change', () => {
+        if (autoRefreshSwitch.checked) {
+            // Start polling every 10 seconds
+            refreshStatusInfo(); // Immediate check
+            statusInterval = setInterval(refreshStatusInfo, 10000);
+        } else {
+            // Stop polling
+            if (statusInterval) clearInterval(statusInterval);
+        }
+    });
+
+    // Cleanup on tab switch or unload
+    window.addEventListener('beforeunload', () => {
+        if (statusInterval) clearInterval(statusInterval);
     });
 }
 
