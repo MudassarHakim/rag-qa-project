@@ -104,6 +104,49 @@ curl -X POST http://localhost:8000/query/search \
 
 ---
 
+## 4. Testing Evaluation (RAGAS)
+
+Validation of RAG quality using "Faithfulness" (hallucination check) and "Answer Relevancy".
+
+### Limitations
+-   **Latency**: Evaluation adds 5-10 seconds to the request time as it invokes the LLM multiple times.
+-   **Cost**: Consumes more OpenAI tokens.
+
+### Run Evaluation Query
+Set `enable_evaluation: true` in your request.
+
+```bash
+curl -X POST http://localhost:8000/query \
+  -H "Content-Type: application/json" \
+  -d '{
+    "question": "What is the capital of France?",
+    "include_sources": true,
+    "enable_evaluation": true
+  }'
+```
+
+**Expected Response with Evaluation:**
+```json
+{
+  "question": "What is the capital of France?",
+  "answer": "The capital of France is Paris.",
+  "sources": [...],
+  "processing_time_ms": 12500.5,
+  "evaluation": {
+    "faithfulness": 1.0,        // 1.0 = Fully supported by sources
+    "answer_relevancy": 0.98,   // 0.98 = Highly relevant to question
+    "evaluation_time_ms": 4500.0,
+    "error": null
+  }
+}
+```
+
+### Interpreting Scores
+-   **Faithfulness < 0.7**: The model might be hallucinating info not found in the documents.
+-   **Answer Relevancy < 0.7**: The model might be dodging the question or giving generic answers.
+
+---
+
 ## Sample End-to-End Workflow
 
 1.  **Check Health**: Ensure `GET /health/ready` returns `status: ready`.
